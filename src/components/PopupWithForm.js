@@ -4,7 +4,7 @@ export default function PopupWithForm({name, isOpen, onClose, title, children, b
       <div className="popup__container">
         <button className="popup__close-btn" type="button" onClick={onClose}></button>
         <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" name={name} noValidate onSubmit={onSubmit}>
+        <form className="popup__form" name={name} onSubmit={onSubmit}>
           {children}
           <button
             className="popup__btn"

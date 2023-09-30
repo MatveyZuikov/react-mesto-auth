@@ -35,11 +35,16 @@ export default function App() {
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
-      auth.getUserInfo(token).then((data) => {
-        setLoggedIn(true);
-        setUserEmail(data.data.email);
-        navigate("/");
-      });
+      auth
+        .getUserInfo(token)
+        .then((data) => {
+          setLoggedIn(true);
+          setUserEmail(data.data.email);
+          navigate("/");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }, []);
 
@@ -63,7 +68,7 @@ export default function App() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [loggedIn]);
 
   function signOut() {
     localStorage.removeItem("token");
@@ -88,6 +93,7 @@ export default function App() {
       .login(email, password)
       .then((res) => {
         setLoggedIn(true);
+        setUserEmail(email);
         navigate("/");
       })
       .catch((err) => {
@@ -216,7 +222,12 @@ export default function App() {
             path="/"
             element={
               <>
-                <Header name="Выйти" path="/sign-in" onClick={signOut} email={userEmail}/>
+                <Header
+                  name="Выйти"
+                  path="/sign-in"
+                  onClick={signOut}
+                  email={userEmail}
+                />
                 <ProtectedRoute
                   onEditProfile={handleEditProfileClick}
                   onAddPlace={handleAddPlaceClick}
@@ -268,7 +279,11 @@ export default function App() {
           onUpdateAvatar={handleUpdateAvatar}
         />
         <ImagePopup card={selectedCard} onCLose={closeAllPopups} />
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} status={tooltipStatus}/>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          status={tooltipStatus}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

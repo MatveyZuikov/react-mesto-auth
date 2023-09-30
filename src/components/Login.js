@@ -39,7 +39,7 @@ export default function Login({onSubmit}) {
       />
       <input
         className="login__input"
-        type="text"
+        type="password"
         name="password"
         placeholder="Пароль"
         required

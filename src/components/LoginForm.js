@@ -8,7 +8,7 @@ export default function LoginForm({
   return (
     <div className="login">
       <h2 className="login__title">{title}</h2>
-      <form className="login__form" name={name} noValidate onSubmit={onSubmit}>
+      <form className="login__form" name={name} onSubmit={onSubmit}>
         {children}
         <button className="login__btn" type="submit">
           {buttonText}
