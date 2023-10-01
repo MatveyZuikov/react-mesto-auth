@@ -49,25 +49,29 @@ export default function App() {
   }, []);
 
   React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    if (loggedIn) {
+      api
+        .getInitialCards()
+        .then((data) => {
+          setCards(data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [loggedIn]);
 
   React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (loggedIn) {
+      api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }, [loggedIn]);
 
   function signOut() {
