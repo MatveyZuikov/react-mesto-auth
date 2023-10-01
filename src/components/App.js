@@ -88,6 +88,7 @@ export default function App() {
         navigate("/sign-in");
       })
       .catch((err) => {
+        setIsInfoTooltipOpen(true);
         console.error(err);
       });
   }
